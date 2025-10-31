@@ -1,0 +1,29 @@
+import { Heart } from "lucide-react";
+
+const Footer = () => {
+  return (
+    <footer className="section-padding bg-secondary/50 border-t border-border/50">
+      <div className="max-w-7xl mx-auto">
+        <div className="text-center space-y-6 animate-fade-in-up">
+          <div className="space-y-2">
+            <h3 className="text-3xl font-bold text-gradient">Let's Build Something Amazing Together!</h3>
+            <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
+              Thank you for exploring my portfolio. I'm passionate about creating innovative solutions and would love to collaborate on your next project. Let's connect and turn ideas into reality!
+            </p>
+          </div>
+
+          <div className="pt-6 border-t border-border/30">
+            <p className="text-muted-foreground flex items-center justify-center gap-2">
+              Made with <Heart className="w-4 h-4 text-primary animate-pulse" fill="currentColor" /> by Uttej Kampasati
+            </p>
+            <p className="text-muted-foreground text-sm mt-2">
+              © {new Date().getFullYear()} All rights reserved.
+            </p>
+          </div>
+        </div>
+      </div>
+    </footer>
+  );
+};
+
+export default Footer;

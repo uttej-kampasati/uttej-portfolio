@@ -6,7 +6,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { toast } from "sonner";
 import { useState } from "react";
 import { useScrollAnimation } from "@/hooks/useScrollAnimation";
-import emailjs from '@emailjs/browser';
+
 
 const contactInfo = [
   {
@@ -46,25 +46,43 @@ const Contact = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    // Basic validation
+    if (!formData.name.trim() || !formData.email.trim() || !formData.message.trim()) {
+      toast.error("Please fill in all fields.");
+      return;
+    }
+
+    // Email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(formData.email)) {
+      toast.error("Please enter a valid email address.");
+      return;
+    }
+
     setIsSubmitting(true);
 
     try {
-      await emailjs.send(
-        'service_jwbqma5',
-        'template_4b8e3jr',
-        {
-          from_name: formData.name,
-          from_email: formData.email,
-          message: formData.message,
-          to_name: 'Uttej Kampasati',
+      const response = await fetch('https://formspree.io/f/xvgvyvpg', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
         },
-        'fEr-wFH5dFpj7MOmg'
-      );
+        body: JSON.stringify({
+          name: formData.name,
+          email: formData.email,
+          message: formData.message,
+        }),
+      });
 
-      toast.success("Message sent successfully! I'll get back to you soon.");
-      setFormData({ name: "", email: "", message: "" });
-    } catch (error) {
-      console.error('EmailJS error:', error);
+      if (response.ok) {
+        toast.success("Message sent successfully! I'll get back to you soon.");
+        setFormData({ name: "", email: "", message: "" });
+      } else {
+        throw new Error('Form submission failed');
+      }
+    } catch (error: any) {
+      console.error('Formspree error:', error);
       toast.error("Failed to send message. Please try again or contact me directly.");
     } finally {
       setIsSubmitting(false);
@@ -97,7 +115,7 @@ const Contact = () => {
                   value={formData.name}
                   onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                   className="bg-background/50 border-border focus:border-primary transition-colors"
-                  placeholder="John Doe"
+                  placeholder="Enter your name"
                 />
               </div>
 
@@ -112,7 +130,7 @@ const Contact = () => {
                   value={formData.email}
                   onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                   className="bg-background/50 border-border focus:border-primary transition-colors"
-                  placeholder="john@example.com"
+                  placeholder="Enter your email"
                 />
               </div>
 
@@ -126,7 +144,7 @@ const Contact = () => {
                   value={formData.message}
                   onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                   className="bg-background/50 border-border focus:border-primary transition-colors min-h-32"
-                  placeholder="Tell me about your project..."
+                  placeholder="Enter your message"
                 />
               </div>
 

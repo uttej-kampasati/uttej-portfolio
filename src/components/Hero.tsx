@@ -40,7 +40,7 @@ const Hero = () => {
               Uttej Kampasati
             </h1>
             <h2 className="text-2xl md:text-3xl text-gradient animate-fade-in-up" style={{ animationDelay: "0.4s" }}>
-              Data Science & Web Development Specialist
+              Data Science & Web Development Student
             </h2>
           </div>
           

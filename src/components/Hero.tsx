@@ -1,6 +1,15 @@
+import profilePhoto from "@/assets/profile-photo.png";
+>>>>>>> a76b4c3039a9ce82605c2108fda7571bb02baebc
+=======
+import profilePhoto from "@/assets/profile-photo.png";
+>>>>>>> a76b4c3039a9ce82605c2108fda7571bb02baebc
+=======
 import { ArrowDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import profilePhoto from "@/assets/profile-photo.jpg";
+=======
+import profilePhoto from "@/assets/profile-photo.png";
+>>>>>>> a76b4c3039a9ce82605c2108fda7571bb02baebc
 
 const Hero = () => {
   const scrollToSection = (id: string) => {
